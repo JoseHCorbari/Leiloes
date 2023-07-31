@@ -28,11 +28,17 @@ public class ProdutosDAO {
             prep.setInt(2,produto.getValor());
             prep.setString(3,produto.getStatus());
             status = prep.executeUpdate();
+            
+            System.out.println("Produto Inserido com Sucesso");
             return status;
+            
         } catch (SQLException ex) {
-            System.out.println("Erro ao conectar: " + ex.getMessage());
+            System.out.println("Produto Não Inserido, Erro ao conectar: " + ex.getMessage());
             return ex.getErrorCode();
         }
+        cadastroVIEW cad = new cadastroVIEW();
+        
+        
     }  
     
     public ArrayList<ProdutosDTO> listarProdutos(){
