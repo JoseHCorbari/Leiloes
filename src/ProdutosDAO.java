@@ -4,6 +4,7 @@ import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,6 +17,7 @@ public class ProdutosDAO {
     ArrayList<ProdutosDTO> listagem = new ArrayList<>();
     
     public int cadastrarProduto (ProdutosDTO produto){
+     
         try {
             conn = new conectaDAO().connectDB();
         } catch (ClassNotFoundException ex) {
@@ -29,25 +31,52 @@ public class ProdutosDAO {
             prep.setString(3,produto.getStatus());
             status = prep.executeUpdate();
             
-            System.out.println("Produto Inserido com Sucesso");
+            JOptionPane.showMessageDialog(null, "Produto cadastrado com Sucesso");
             return status;
             
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Produto não foi cadastrado");
             System.out.println("Produto Não Inserido, Erro ao conectar: " + ex.getMessage());
             return ex.getErrorCode();
         }
-        cadastroVIEW cad = new cadastroVIEW();
-        
+              
         
     }  
     
     public ArrayList<ProdutosDTO> listarProdutos(){
         
-        return listagem;
+        try {
+            conn = new conectaDAO().connectDB();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ProdutosDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+         String sql = "select * from produtos";
+                
+        try {
+            prep = conn.prepareStatement(sql);            
+            
+            resultset = prep.executeQuery();
+            listagem = new ArrayList<>();
+            
+            while(resultset.next()){
+                ProdutosDTO prodDTO = new ProdutosDTO();
+                prodDTO.setId(resultset.getInt("id"));
+                prodDTO.setNome(resultset.getString("nome"));
+                prodDTO.setValor(resultset.getInt("valor"));
+                prodDTO.setStatus(resultset.getString("status"));
+                listagem.add(prodDTO);
+            }
+            return listagem;
+        }catch (SQLException ex) {
+            System.out.println("Erro ao excluir: " + ex.getMessage());
+                return null;
+        }
+    }      
+        
     }
     
     
     
-        
-}
+ 
 
