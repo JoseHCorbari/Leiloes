@@ -122,12 +122,58 @@ public class listagemVIEW extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
+        
+        ProdutosDTO venda = new ProdutosDTO();
         String id = id_produto_venda.getText();
+        String status = "Vendido";
+        venda.setId(Integer.parseInt(id));
+        venda.setStatus(status);
+        
+        ProdutosDAO produtodao = new ProdutosDAO();
+        produtodao.venderProduto(venda);
 
-        ProdutosDAO produtosdao = new ProdutosDAO();
+//String id = id_produto_venda.getText();
+
+       // ProdutosDAO produtosdao = new ProdutosDAO();
 
         //produtosdao.venderProduto(Integer.parseInt(id));
-        listarProdutos();
+        //listarProdutos();
+        
+        
+        
+        //String id = id_produto_venda.getText();
+
+        //ProdutosDAO produtosdao = new ProdutosDAO();
+        //ProdutosDTO pdto = new ProdutosDTO();
+        
+        //pdto.setId(id_produto_venda.getText());
+        
+        //listarProdutos();
+        
+       // boolean status;
+        //int resposta;
+        
+        //ProdutosDTO pdto = new ProdutosDTO();
+        //pdto.setId(Integer.parseInt(id_produto_venda.getText()));
+        //pdto.setStatus("Vendido"); 
+                
+        //ProdutosDAO dao = new ProdutosDAO();
+        //status = dao.conectar();
+        //if(status == false){
+         //   JOptionPane.showMessageDialog(null,"Erro de conexão");
+        //}else{
+        //    resposta = dao.atualizar(film);
+        //    System.out.println(film.getNome());
+        //    if(resposta == 1){
+         //       JOptionPane.showMessageDialog(null,"Dados atualizados com sucesso");
+         //      limpacampo();
+         //   }else if (resposta ==1062){
+         //       JOptionPane.showMessageDialog(null,"Filme já foi cadastrada");   
+         //   }else{
+         //       JOptionPane.showMessageDialog(null,"Erro ao tentar inserir dados");
+         //   }
+         //   dao.desconectar();
+        
     }//GEN-LAST:event_btnVenderActionPerformed
 
     private void btnVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasActionPerformed
