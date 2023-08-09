@@ -97,5 +97,36 @@ public class ProdutosDAO {
             return null;
         }
     }
+    
+    public ArrayList<ProdutosDTO> listarProdutosVendidos() {
+
+        try {
+            conn = new conectaDAO().connectDB();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ProdutosDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        String sql = "select * from produtos where status = 'Vendido'";
+
+        try {
+            prep = conn.prepareStatement(sql);
+
+            resultset = prep.executeQuery();
+            listagem = new ArrayList<>();
+
+            while (resultset.next()) {
+                ProdutosDTO prodDTO = new ProdutosDTO();
+                prodDTO.setId(resultset.getInt("id"));
+                prodDTO.setNome(resultset.getString("nome"));
+                prodDTO.setValor(resultset.getInt("valor"));
+                prodDTO.setStatus(resultset.getString("status"));
+                listagem.add(prodDTO);
+            }
+            return listagem;
+        } catch (SQLException ex) {
+            System.out.println("Erro ao excluir: " + ex.getMessage());
+            return null;
+        }
+    }
 
 }
